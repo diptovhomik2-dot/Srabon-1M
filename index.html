@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SH Team Auto AI — Demo</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#111;
+  font-family:Arial,sans-serif;
+}
+
+.panel{
+  width:330px;
+  padding:22px;
+  border:6px solid #ffd000;
+  border-radius:45px;
+  background:linear-gradient(#090909,#202030,#090909);
+  box-shadow:0 0 30px #ffd000;
+  text-align:center;
+}
+
+.period{
+  display:inline-block;
+  padding:12px 25px;
+  border-radius:30px;
+  background:#ffd21c;
+  color:#111;
+  font-weight:bold;
+  box-shadow:0 0 20px #ffd21c;
+}
+
+.title{
+  margin:35px 0 20px;
+  color:#ffd21c;
+  font-size:24px;
+  font-weight:bold;
+  line-height:1.5;
+}
+
+.result{
+  font-size:64px;
+  font-weight:900;
+  color:#ff1010;
+  text-shadow:0 0 15px red;
+}
+
+.accuracy{
+  margin:25px 0;
+  color:#00ffc8;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.timer{
+  color:white;
+  font-size:20px;
+  margin-bottom:20px;
+}
+
+.buttons{
+  display:flex;
+  gap:18px;
+}
+
+button{
+  flex:1;
+  border:0;
+  padding:15px;
+  border-radius:30px;
+  color:white;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.exit{
+  background:#ff1010;
+  box-shadow:0 0 15px red;
+}
+
+.hide{
+  background:#19ff00;
+  color:#000;
+  box-shadow:0 0 15px #19ff00;
+}
+</style>
+</head>
+
+<body>
+
+<div class="panel" id="panel">
+
+  <div class="period">
+    PERIOD: <span id="period">51269</span>
+  </div>
+
+  <div class="title">
+    SH TEAM AUTO<br>
+    AI ENGINE
+  </div>
+
+  <div class="result" id="result">SMALL</div>
+
+  <div class="accuracy">
+    Accuracy: <span id="accuracy">91</span>%
+  </div>
+
+  <div class="timer">
+    Next result in <span id="timer">30</span>s
+  </div>
+
+  <div class="buttons">
+    <button class="exit" onclick="exitDemo()">EXIT</button>
+    <button class="hide" onclick="hideDemo()">HIDE</button>
+  </div>
+
+</div>
+
+<script>
+let period = 51269;
+let seconds = 30;
+
+function newPrediction(){
+
+  // Demo-only random prediction.
+  const prediction =
+    Math.random() < 0.5 ? "SMALL" : "BIG";
+
+  const result = document.getElementById("result");
+
+  result.textContent = prediction;
+
+  if(prediction === "BIG"){
+    result.style.color = "#00ff20";
+    result.style.textShadow = "0 0 15px #00ff20";
+  }else{
+    result.style.color = "#ff1010";
+    result.style.textShadow = "0 0 15px red";
+  }
+
+  period++;
+  document.getElementById("period").textContent = period;
+
+  document.getElementById("accuracy").textContent =
+    Math.floor(85 + Math.random() * 11);
+
+  seconds = 30;
+}
+
+setInterval(() => {
+
+  seconds--;
+
+  if(seconds <= 0){
+    newPrediction();
+  }
+
+  document.getElementById("timer").textContent = seconds;
+
+},1000);
+
+function hideDemo(){
+  document.getElementById("panel").style.display = "none";
+}
+
+function exitDemo(){
+  document.body.innerHTML =
+    "<h2 style='color:white;font-family:Arial'>Demo closed.</h2>";
+}
+</script>
+
+</body>
+</html>
